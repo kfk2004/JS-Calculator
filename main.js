@@ -1,8 +1,7 @@
-console.log("Rock Paper Scissors")
-
 let operator = '';
 let previousValue = '';
 let currentValue = '';
+let isCalculated = false;
 
 document.addEventListener("DOMContentLoaded", function(){
     let clear = document.querySelector("#clear-btn");
@@ -26,19 +25,33 @@ document.addEventListener("DOMContentLoaded", function(){
         currentScreen.textContent = currentValue;
     }))
 
+
+    equal.addEventListener("click", function() {
+        if (!isCalculated) {
+            calculate(); 
+            isCalculated = true; 
+
+            previousScreen.textContent = " ";
+            currentScreen.textContent = currentValue;
+        }
+    });
+
     clear.addEventListener("click", function(){
         previousValue = '';
         currentValue = '';
         operator = '';
         currentScreen.textContent = currentValue;
-        
+        previousScreen.textContent = currentValue;
+        isCalculated = false;
     })
 
-    equal.addEventListener("click", function(){
-        calculate()
-        previousScreen.textContent = " ";
-        currentScreen.textContent = currentValue;
-    })
+    decimal.addEventListener("click", function() {
+        if (!currentValue.includes('.')) {
+            currentValue += '.';
+            currentScreen.textContent = currentValue;
+        }
+    });
+    
 })
 
 function handleNumber(num){
@@ -65,6 +78,11 @@ function calculate(){
     } else{
         previousValue/=currentValue;
     }
+
+
+    // if(currentValue.includes('.')){
+    // currentValue = currentValue.toFixed(5);
+    // }
 
     console.log(previousValue);
     previousValue = previousValue.toString();
